@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/launch.dir/main.cpp.o -o launch  -Wl,-rpath,/usr/local/lib64: /usr/local/lib64/libraylib.so -L/usr/local/lib64 -lraylib 

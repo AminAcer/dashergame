@@ -1,1 +1,3 @@
-find_package(raylib REQUIRED)
+add_subdirectory(library)
+add_subdirectory(app)
+

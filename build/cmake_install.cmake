@@ -42,32 +42,14 @@ if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}/home/vamin/Documents/dashergame/build/bin/launch" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/vamin/Documents/dashergame/build/bin/launch")
-    file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}/home/vamin/Documents/dashergame/build/bin/launch"
-         RPATH "")
-  endif()
-  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/vamin/Documents/dashergame/build/bin/launch")
-  if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
-    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
-  endif()
-  if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
-    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
-  endif()
-  file(INSTALL DESTINATION "/home/vamin/Documents/dashergame/build/bin" TYPE EXECUTABLE FILES "/home/vamin/Documents/dashergame/build/launch")
-  if(EXISTS "$ENV{DESTDIR}/home/vamin/Documents/dashergame/build/bin/launch" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/vamin/Documents/dashergame/build/bin/launch")
-    file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}/home/vamin/Documents/dashergame/build/bin/launch"
-         OLD_RPATH "/usr/local/lib64:"
-         NEW_RPATH "")
-    if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/home/vamin/Documents/dashergame/build/bin/launch")
-    endif()
-  endif()
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/vamin/Documents/dashergame/build/src/app/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/vamin/Documents/dashergame/build/src/library/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

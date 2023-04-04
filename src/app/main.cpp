@@ -1,5 +1,7 @@
-#include "raylib.h"
 #include <iostream>
+
+#include "raylib.h"
+#include "Texture.h"
 
 int main()
 {
@@ -88,7 +90,6 @@ int main()
 
       // Update running time
       runningTime += dt;
-      me/vamin/Documents/dashergame/textures/back-buildings.png' 
 
       // Update animation if loop has ran long enough
       if (runningTime >= updateTimePlayer)

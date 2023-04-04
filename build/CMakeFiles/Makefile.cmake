@@ -11,6 +11,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.26.0/CMakeCCompiler.cmake"
   "CMakeFiles/3.26.0/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.26.0/CMakeSystem.cmake"
+  "/home/vamin/Documents/dashergame/src/app/CMakeLists.txt"
+  "/home/vamin/Documents/dashergame/src/library/CMakeLists.txt"
   "/usr/local/lib64/cmake/raylib/raylib-config-version.cmake"
   "/usr/local/lib64/cmake/raylib/raylib-config.cmake"
   "/usr/share/cmake/Modules/CMakeCCompiler.cmake.in"
@@ -124,9 +126,11 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/3.26.0/CMakeCCompiler.cmake"
   "CMakeFiles/3.26.0/CMakeCXXCompiler.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/app/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/library/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/launch.dir/DependInfo.cmake"
+  "src/app/CMakeFiles/dasher-launch.dir/DependInfo.cmake"
   )

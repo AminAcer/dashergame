@@ -63,42 +63,75 @@ CMAKE_BINARY_DIR = /home/vamin/Documents/dashergame/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/launch.dir/all
+all: src/app/all
+all: src/library/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: src/app/preinstall
+preinstall: src/library/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/launch.dir/clean
+clean: src/app/clean
+clean: src/library/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/launch.dir
+# Directory level rules for directory src/app
+
+# Recursive "all" directory target.
+src/app/all: src/app/CMakeFiles/dasher-launch.dir/all
+.PHONY : src/app/all
+
+# Recursive "preinstall" directory target.
+src/app/preinstall:
+.PHONY : src/app/preinstall
+
+# Recursive "clean" directory target.
+src/app/clean: src/app/CMakeFiles/dasher-launch.dir/clean
+.PHONY : src/app/clean
+
+#=============================================================================
+# Directory level rules for directory src/library
+
+# Recursive "all" directory target.
+src/library/all:
+.PHONY : src/library/all
+
+# Recursive "preinstall" directory target.
+src/library/preinstall:
+.PHONY : src/library/preinstall
+
+# Recursive "clean" directory target.
+src/library/clean:
+.PHONY : src/library/clean
+
+#=============================================================================
+# Target rules for target src/app/CMakeFiles/dasher-launch.dir
 
 # All Build rule for target.
-CMakeFiles/launch.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/launch.dir/build.make CMakeFiles/launch.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/launch.dir/build.make CMakeFiles/launch.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vamin/Documents/dashergame/build/CMakeFiles --progress-num=1,2 "Built target launch"
-.PHONY : CMakeFiles/launch.dir/all
+src/app/CMakeFiles/dasher-launch.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/app/CMakeFiles/dasher-launch.dir/build.make src/app/CMakeFiles/dasher-launch.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/app/CMakeFiles/dasher-launch.dir/build.make src/app/CMakeFiles/dasher-launch.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vamin/Documents/dashergame/build/CMakeFiles --progress-num=1,2 "Built target dasher-launch"
+.PHONY : src/app/CMakeFiles/dasher-launch.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/launch.dir/rule: cmake_check_build_system
+src/app/CMakeFiles/dasher-launch.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vamin/Documents/dashergame/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/launch.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/app/CMakeFiles/dasher-launch.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vamin/Documents/dashergame/build/CMakeFiles 0
-.PHONY : CMakeFiles/launch.dir/rule
+.PHONY : src/app/CMakeFiles/dasher-launch.dir/rule
 
 # Convenience name for target.
-launch: CMakeFiles/launch.dir/rule
-.PHONY : launch
+dasher-launch: src/app/CMakeFiles/dasher-launch.dir/rule
+.PHONY : dasher-launch
 
 # clean rule for target.
-CMakeFiles/launch.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/launch.dir/build.make CMakeFiles/launch.dir/clean
-.PHONY : CMakeFiles/launch.dir/clean
+src/app/CMakeFiles/dasher-launch.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/app/CMakeFiles/dasher-launch.dir/build.make src/app/CMakeFiles/dasher-launch.dir/clean
+.PHONY : src/app/CMakeFiles/dasher-launch.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
