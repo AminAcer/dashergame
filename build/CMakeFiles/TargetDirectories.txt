@@ -1,0 +1,7 @@
+/home/vamin/Documents/dashergame/build/CMakeFiles/launch.dir
+/home/vamin/Documents/dashergame/build/CMakeFiles/edit_cache.dir
+/home/vamin/Documents/dashergame/build/CMakeFiles/rebuild_cache.dir
+/home/vamin/Documents/dashergame/build/CMakeFiles/list_install_components.dir
+/home/vamin/Documents/dashergame/build/CMakeFiles/install.dir
+/home/vamin/Documents/dashergame/build/CMakeFiles/install/local.dir
+/home/vamin/Documents/dashergame/build/CMakeFiles/install/strip.dir
