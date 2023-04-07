@@ -6,37 +6,36 @@
 int main()
 {
    // Window dimensions
-   const int windowWidth{800};
-   const int windowHeight{800};
+   const int windowWidth{1920};
+   const int windowHeight{1080};
    InitWindow(windowWidth, windowHeight, "Dasher");
+   ToggleFullscreen();
+   SetWindowMonitor(0);
 
    // Physics
-   int velocity{0};
    const int jumpVelocity{-600};
    int gravity{1000};
    bool isInAir{false};
 
    // ----- Textures PLAYER -----
-   Texture2D player = LoadTexture("/home/vamin/Documents/dashergame/textures/scarfy.png");
-   Rectangle playerRec;
-   int aniFrame{};
-   // Amount of time before updating the animation frame
-   const float updateTimePlayer = 1.0 / 12.0;
-   float runningTime{};
-   playerRec.width = player.width / 6;
-   playerRec.height = player.height;
-   playerRec.x = 0;
-   playerRec.y = 0;
-   Vector2 playerPos{windowWidth/2 - playerRec.width/2, windowHeight - playerRec.height};
+   dasher::Texture player("/home/vamin/Documents/dashergame/textures/scarfy.png");
+   player.spriteTotal = 6;
+   player.rect = {0,
+                  0, 
+                  static_cast<float>(player.object.width/player.spriteTotal), 
+                  static_cast<float>(player.object.height)};
+   player.pos = {windowWidth/2 - player.rect.width/2,  windowHeight - player.rect.height};
+   player.updateTime = 1.0/12.0;
+   player.velocity = 0;
 
    // ----- Textures Obstacle ----
    Texture2D obstacle = LoadTexture("/home/vamin/Documents/dashergame/textures/12_nebula_spritesheet.png");
    Rectangle obRec{0.0, 0.0, static_cast<float>(obstacle.width / 8), static_cast<float>(obstacle.height / 8)};
    Vector2 obPos{windowWidth, windowHeight - obRec.height};
-   
+
    Rectangle ob2Rec{0.0, 0.0, static_cast<float>(obstacle.width / 8), static_cast<float>(obstacle.height / 8)};
    Vector2 ob2Pos{windowWidth + 300, windowHeight - ob2Rec.height};
-   
+
    int obFrame{};
    int ob2Frame{};
    // Amount of time before updateing the animation frame
@@ -61,19 +60,20 @@ int main()
       // Time since last frame (delta time)
       const float dt = GetFrameTime();
 
-      if (playerPos.y >= windowHeight - playerRec.height)
+      if (player.pos.y >= windowHeight - player.rect.height)
       {
          isInAir = false;
-         velocity = 0;
+         player.velocity = 0;
       }
       else
       {
          isInAir = true;
-         velocity += gravity* dt;
+         player.velocity += gravity* dt;
       }
+  
       if (IsKeyPressed(KEY_SPACE) && !isInAir)
       {
-         velocity += jumpVelocity;
+         player.velocity += jumpVelocity;
       }
 
       if (obPos.x + obRec.width <= 0)
@@ -82,33 +82,33 @@ int main()
       }
 
       // Update player position
-      playerPos.y += velocity * dt;
+      player.pos.y += player.velocity * dt;
 
       // Update obstacle postion
       obPos.x += obVel * dt;      
       ob2Pos.x += obVel * dt;
 
       // Update running time
-      runningTime += dt;
+      player.runningTime += dt;
 
       // Update animation if loop has ran long enough
-      if (runningTime >= updateTimePlayer)
+      if (player.runningTime >= player.updateTime)
       {
-         runningTime = 0.0;
-         
+         player.runningTime = 0.0;
+
 
          if (!isInAir)
          {
             // Update player animation if on the ground
-            playerRec.x = aniFrame * playerRec.width;
-            aniFrame ++;
-            if (aniFrame > 5)
+            player.rect.x = player.frame * player.rect.width;
+            player.frame ++;
+            if (player.frame > player.spriteTotal - 1)
             {
-               aniFrame = 0;
+               player.frame = 0;
             }
          }      
       }
-      
+
       runningTimeOb += dt;
       if (runningTimeOb >= updateTimeObstacle)
       {
@@ -120,7 +120,7 @@ int main()
             obFrame = 0;
          }
       }
-      
+
       runningTimeOb2 += dt;
       if (runningTimeOb2 >= updateTimeObstacle2)
       {
@@ -140,11 +140,11 @@ int main()
       DrawTextureRec(obstacle, ob2Rec, ob2Pos, RED);
 
       // Draw player
-      DrawTextureRec(player, playerRec, playerPos, WHITE);
+      DrawTextureRec(player.object, player.rect, player.pos, WHITE);
 
       EndDrawing();
    }
-   UnloadTexture(player);
+   UnloadTexture(player.object);
    UnloadTexture(obstacle);
    CloseWindow();
 
