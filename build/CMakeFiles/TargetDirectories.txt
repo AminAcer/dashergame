@@ -1,7 +1,0 @@
-/home/vamin/Documents/dashergame/build/CMakeFiles/edit_cache.dir
-/home/vamin/Documents/dashergame/build/CMakeFiles/rebuild_cache.dir
-/home/vamin/Documents/dashergame/build/src/app/CMakeFiles/dasher-launch.dir
-/home/vamin/Documents/dashergame/build/src/app/CMakeFiles/edit_cache.dir
-/home/vamin/Documents/dashergame/build/src/app/CMakeFiles/rebuild_cache.dir
-/home/vamin/Documents/dashergame/build/src/library/CMakeFiles/edit_cache.dir
-/home/vamin/Documents/dashergame/build/src/library/CMakeFiles/rebuild_cache.dir
