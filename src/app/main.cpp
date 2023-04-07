@@ -25,28 +25,30 @@ int main()
                   static_cast<float>(player.object.width/player.spriteTotal), 
                   static_cast<float>(player.object.height)};
    player.pos = {windowWidth/2 - player.rect.width/2,  windowHeight - player.rect.height};
-   player.updateTime = 1.0/12.0;
+   player.updateTime = 1.0 / 12.0;
    player.velocity = 0;
 
-   // ----- Textures Obstacle ----
-   Texture2D obstacle = LoadTexture("/home/vamin/Documents/dashergame/textures/12_nebula_spritesheet.png");
-   Rectangle obRec{0.0, 0.0, static_cast<float>(obstacle.width / 8), static_cast<float>(obstacle.height / 8)};
-   Vector2 obPos{windowWidth, windowHeight - obRec.height};
+   // ----- First Obstacle ----
+   dasher::Texture obstacle("/home/vamin/Documents/dashergame/textures/12_nebula_spritesheet.png");
+   obstacle.spriteTotal = 8;
+   obstacle.rect = {0, 
+                    0, 
+                    static_cast<float>(obstacle.object.width / obstacle.spriteTotal), 
+                    static_cast<float>(obstacle.object.height / obstacle.spriteTotal)};
+   obstacle.pos = {windowWidth, windowHeight - obstacle.rect.height};
+   obstacle.updateTime = 1.0 / 16.0;
+   obstacle.velocity = -600;
 
-   Rectangle ob2Rec{0.0, 0.0, static_cast<float>(obstacle.width / 8), static_cast<float>(obstacle.height / 8)};
-   Vector2 ob2Pos{windowWidth + 300, windowHeight - ob2Rec.height};
-
-   int obFrame{};
-   int ob2Frame{};
-   // Amount of time before updateing the animation frame
-
-   const float updateTimeObstacle = 1.0 / 16.0;
-   const float updateTimeObstacle2 = 1.0 / 16.0;
-   float runningTimeOb{};
-   float runningTimeOb2{};
-
-   // Obstacle x velocity (pixels/sec)
-   int obVel{-600};
+   // ----- Second Obstacle ----
+   dasher::Texture obstacle2("/home/vamin/Documents/dashergame/textures/12_nebula_spritesheet.png");
+   obstacle2.spriteTotal = 8;
+   obstacle2.rect = {0, 
+                    0, 
+                    static_cast<float>(obstacle2.object.width / obstacle2.spriteTotal), 
+                    static_cast<float>(obstacle2.object.height / obstacle2.spriteTotal)};
+   obstacle2.pos = {windowWidth, windowHeight - obstacle2.rect.height};
+   obstacle2.updateTime = 1.0 / 16.0;
+   obstacle2.velocity = -600;
 
    // FPS
    const int fps = 140;
@@ -76,17 +78,17 @@ int main()
          player.velocity += jumpVelocity;
       }
 
-      if (obPos.x + obRec.width <= 0)
+      if (obstacle.pos.x + obstacle.rect.width <= 0)
       {
-         obPos.x = windowWidth;
+         obstacle.pos.x = windowWidth;
       }
 
       // Update player position
       player.pos.y += player.velocity * dt;
 
       // Update obstacle postion
-      obPos.x += obVel * dt;      
-      ob2Pos.x += obVel * dt;
+      obstacle.pos.x += obstacle.velocity * dt;      
+      obstacle2.pos.x += obstacle2.velocity * dt;
 
       // Update running time
       player.runningTime += dt;
@@ -109,43 +111,46 @@ int main()
          }      
       }
 
-      runningTimeOb += dt;
-      if (runningTimeOb >= updateTimeObstacle)
+      obstacle.runningTime += dt;
+      if (obstacle.runningTime >= obstacle.updateTime)
       {
-         runningTimeOb = 0.0;
-         obRec.x = obFrame * obRec.width;
-         obFrame++;
-         if (obFrame > 7)
+         obstacle.runningTime = 0.0;
+         obstacle.rect.x = obstacle.frame * obstacle.rect.width;
+         obstacle.frame ++;
+         if (obstacle.frame > 7)
          {
-            obFrame = 0;
+            obstacle.frame = 0;
          }
       }
 
-      runningTimeOb2 += dt;
-      if (runningTimeOb2 >= updateTimeObstacle2)
+      obstacle.runningTime += dt;
+      if (obstacle.runningTime >= obstacle.updateTime)
       {
-         runningTimeOb2 = 0.0;
-         ob2Rec.x = ob2Frame * ob2Rec.width;
-         ob2Frame++;
-         if (ob2Frame > 7)
+         obstacle.runningTime = 0.0;
+         obstacle2.rect.x = obstacle2.frame * obstacle2.rect.width;
+         obstacle2.frame ++;
+         if (obstacle2.frame > 7)
          {
-            ob2Frame = 0;
+            obstacle2.frame = 0;
          }
       }
 
       // Draw obstacle
-      DrawTextureRec(obstacle, obRec, obPos, WHITE);
+      DrawTextureRec(obstacle.object, obstacle.rect, obstacle.pos, WHITE);
 
       // Draw obstacle2
-      DrawTextureRec(obstacle, ob2Rec, ob2Pos, RED);
+      DrawTextureRec(obstacle2.object, obstacle2.rect, obstacle2.pos, RED);
 
       // Draw player
       DrawTextureRec(player.object, player.rect, player.pos, WHITE);
 
       EndDrawing();
    }
+
    UnloadTexture(player.object);
-   UnloadTexture(obstacle);
+   UnloadTexture(obstacle.object);
+   UnloadTexture(obstacle2.object);
+
    CloseWindow();
 
    return 0;
