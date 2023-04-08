@@ -1,7 +1,6 @@
 #include <iostream>
-
-#include "raylib.h"
 #include "Texture.h"
+#include "Player.h"
 
 int main()
 {
@@ -13,12 +12,12 @@ int main()
    SetWindowMonitor(0);
 
    // Physics
-   const int jumpVelocity{-600};
-   int gravity{1000};
-   bool isInAir{false};
+   //const int player.jumpVelocity{-600};
+   //int player.gravity{1000};
+   //bool player.isInAir{false};
 
    // ----- Textures PLAYER -----
-   dasher::Texture player("/home/vamin/Documents/dashergame/textures/scarfy.png");
+   dasher::Player player("/home/vamin/Documents/dashergame/textures/scarfy.png");
    player.spriteTotal = 6;
    player.rect = {0,
                   0, 
@@ -27,6 +26,7 @@ int main()
    player.pos = {windowWidth/2 - player.rect.width/2,  windowHeight - player.rect.height};
    player.updateTime = 1.0 / 12.0;
    player.velocity = 0;
+   player.jumpVelocity = -600;
 
    // ----- First Obstacle ----
    dasher::Texture obstacle("/home/vamin/Documents/dashergame/textures/12_nebula_spritesheet.png");
@@ -64,18 +64,18 @@ int main()
 
       if (player.pos.y >= windowHeight - player.rect.height)
       {
-         isInAir = false;
+         player.isInAir = false;
          player.velocity = 0;
       }
       else
       {
-         isInAir = true;
-         player.velocity += gravity* dt;
+         player.isInAir = true;
+         player.velocity += player.gravity* dt;
       }
   
-      if (IsKeyPressed(KEY_SPACE) && !isInAir)
+      if (IsKeyPressed(KEY_SPACE) && !player.isInAir)
       {
-         player.velocity += jumpVelocity;
+         player.velocity += player.jumpVelocity;
       }
 
       if (obstacle.pos.x + obstacle.rect.width <= 0)
@@ -99,7 +99,7 @@ int main()
          player.runningTime = 0.0;
 
 
-         if (!isInAir)
+         if (!player.isInAir)
          {
             // Update player animation if on the ground
             player.rect.x = player.frame * player.rect.width;
@@ -123,10 +123,10 @@ int main()
          }
       }
 
-      obstacle.runningTime += dt;
-      if (obstacle.runningTime >= obstacle.updateTime)
+      obstacle2.runningTime += dt;
+      if (obstacle2.runningTime >= obstacle2.updateTime)
       {
-         obstacle.runningTime = 0.0;
+         obstacle2.runningTime = 0.0;
          obstacle2.rect.x = obstacle2.frame * obstacle2.rect.width;
          obstacle2.frame ++;
          if (obstacle2.frame > 7)

@@ -17,7 +17,7 @@ namespace dasher
       }
       
       /// @brief Default Destructor
-      ~Texture() = default;
+      virtual ~Texture() = default;
       
       /// @brief Delete default constructor
       Texture() = delete;
@@ -37,6 +37,9 @@ namespace dasher
       /// @brief Position of sprite
       Vector2 pos{};
       
+      /// @brief Animates the texture by updating sprite
+      virtual void updateAnimation() {};
+
       /// @brief Multiplier for sprite selection
       int frame{};
       
