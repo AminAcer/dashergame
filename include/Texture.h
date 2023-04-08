@@ -11,6 +11,7 @@ namespace dasher
    public:
 
       /// @brief Constructor
+      /// @param textureSource Path to texture image
       Texture(std::string textureSource)
       : object(::LoadTexture(textureSource.c_str()))
       {
@@ -38,7 +39,7 @@ namespace dasher
       Vector2 pos{};
       
       /// @brief Animates the texture by updating sprite
-      virtual void updateAnimation() {};
+      virtual void updateAnimation() = 0;
 
       /// @brief Multiplier for sprite selection
       int frame{};
