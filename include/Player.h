@@ -11,7 +11,7 @@ namespace dasher
 
       /// @brief Default constructor
       Player(std::string textureSource)
-      : Texture(textureSource.c_str())
+      : Texture(textureSource)
       {
       }
       
@@ -33,7 +33,7 @@ namespace dasher
       /// @brief Player jump functionality
       void jump(const float dt);
 
-      /// @brief Updates player animaltion
+      /// @brief Updates player animation
       void updateAnimation() override;
  
       /// @brief Updates player

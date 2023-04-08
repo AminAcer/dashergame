@@ -36,7 +36,7 @@ namespace dasher
             // Update player animation if on the ground
             rect.x = frame * rect.width;
             frame ++;
-            if (frame > (spriteTotal = 1))
+            if (frame > (spriteTotal - 1))
             {
                frame = 0;
             }
@@ -51,8 +51,12 @@ namespace dasher
       
       // Check if jump
       jump(dt);
+      
+      // Update player position
+      pos.y += velocity*dt;
 
       // Update animation
+      runningTime += dt;
       updateAnimation();
    }
 } // namespace dasher
