@@ -125,7 +125,9 @@ int main()
    UnloadTexture(player.object);
    UnloadTexture(obstacle.object);
    UnloadTexture(obstacle2.object);
-
+   UnloadTexture(background);
+   UnloadTexture(midground);
+   UnloadTexture(foreground);
    CloseWindow();
 
    return 0;
