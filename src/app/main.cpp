@@ -10,7 +10,15 @@ int main()
    InitWindow(windowWidth, windowHeight, "Dasher");
    ToggleFullscreen();
    SetWindowMonitor(0);
-   
+  
+   // Background
+   Texture2D background = LoadTexture("/home/vamin/Documents/dashergame/textures/far-buildings.png");
+   float bgx{};
+   Texture2D midground = LoadTexture("/home/vamin/Documents/dashergame/textures/back-buildings.png");
+   float mgx{};
+   Texture2D foreground = LoadTexture("/home/vamin/Documents/dashergame/textures/foreground.png");
+   float fgx{};
+
    // ----- Textures PLAYER -----
    dasher::Player player("/home/vamin/Documents/dashergame/textures/scarfy.png");
    player.spriteTotal = 6;
@@ -57,16 +65,56 @@ int main()
       // Time since last frame (delta time)
       const float dt = GetFrameTime();
       
+      // bg1
+      float bgscale = 5.65;
+      bgx -= 50 * dt;
+      if (bgx <= -background.width*bgscale)
+      {
+         bgx = 0.0;
+      }
+      Vector2 bg1Pos{bgx, 0.0};
+      DrawTextureEx(background, bg1Pos, 0.0, bgscale, WHITE);
+      Vector2 bg2Pos{bgx + background.width * bgscale, 0.0};
+      DrawTextureEx(background, bg2Pos, 0.0, bgscale, WHITE);
+      Vector2 bg3Pos{bgx + 2*background.width * bgscale, 0.0};
+      DrawTextureEx(background, bg3Pos, 0.0, bgscale, WHITE);
+      
+      float mgscale = 5.65;
+      mgx -= 80 * dt; 
+      if (mgx <= -midground.width*mgscale)
+      {
+         mgx = 0.0;
+      }
+      Vector2 mg1Pos{mgx, 0.0};
+      DrawTextureEx(midground, mg1Pos, 0.0, mgscale, WHITE);
+      Vector2 mg2Pos{mgx + midground.width * mgscale, 0.0};
+      DrawTextureEx(midground, mg2Pos, 0.0, mgscale, WHITE);
+      Vector2 mg3Pos{mgx + 2*midground.width * mgscale, 0.0};
+      DrawTextureEx(midground, mg3Pos, 0.0, mgscale, WHITE);
+      
+      float fgscale = 4.0;
+      fgx -= 110 * dt; 
+      if (fgx <= -foreground.width*fgscale)
+      {
+         fgx = 0.0;
+      }
+      Vector2 fg1Pos{fgx, 340};
+      DrawTextureEx(foreground, fg1Pos, 0.0, fgscale, WHITE);
+      Vector2 fg2Pos{fgx + foreground.width * fgscale, 340};
+      DrawTextureEx(foreground, fg2Pos, 0.0, fgscale, WHITE);
+      Vector2 fg3Pos{fgx + 2*foreground.width * fgscale, 340};
+      DrawTextureEx(foreground, fg3Pos, 0.0, fgscale, WHITE);
+      
       // Update textures
       player.updatePlayer(windowHeight, dt);
       obstacle.updateObstacle(windowWidth, dt);
       obstacle2.updateObstacle(windowWidth, dt);
 
       // Draw obstacle
-      DrawTextureRec(obstacle.object, obstacle.rect, obstacle.pos, BLUE);
+      DrawTextureRec(obstacle.object, obstacle.rect, obstacle.pos, WHITE);
 
       // Draw obstacle2
-      DrawTextureRec(obstacle2.object, obstacle2.rect, obstacle2.pos, RED);
+      DrawTextureRec(obstacle2.object, obstacle2.rect, obstacle2.pos, WHITE);
 
       // Draw player
       DrawTextureRec(player.object, player.rect, player.pos, WHITE);

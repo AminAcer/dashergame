@@ -1,0 +1,52 @@
+More parentheses with logic
+more enums than bools
+avoid !isInAir and use isInAir == false
+if else statements : True case inside if part, else is for false
+
+Background Class (Child of Texture)
+	Variables:
+		scale
+	Functions:
+		findScale
+		findDuplicateAmount
+		floorImage
+		updateAnimation
+		updateBackground
+
+Animation Class
+	Variables:
+		rect
+		frame
+		spriteTotal
+
+TimeData Class
+	Variables:
+		runningTime
+		updateTime
+
+WindowManager
+	Variables:
+		windowWidth
+		windowHeight
+	Functions:
+		createWindow
+		toggleFullscreen
+		beginDrawing
+
+GameManager Class
+	Gamestate Enum:
+		MENU
+		GAMEPLAY
+		END
+	Functions:
+		drawTextures
+		detectCollision
+		endGame
+
+Backlog
+	Add music
+	Add main menu
+	Add score
+	Keep track of high scores
+	Allow player to move left right (maybe)
+		
