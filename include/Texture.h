@@ -56,9 +56,6 @@ namespace dasher
       /// @brief How fast the texture is moving
       int velocity{};
    
-   protected:
-
-   private:
    };
 
 } // namespace dasher

@@ -28,17 +28,15 @@ namespace dasher
       Obstacle(Obstacle&&) = delete;
       
       /// @brief Reset obstacle position when off screen
+      /// @param wWidth: Window Width
       void makeContinuous(int wWidth);
 
       /// @brief Updates obstacle animation
       void updateAnimation() override;
 
       /// @brief Updates obstacle
+      /// @param wWidth: Window Width, dt: Delta Time
       void updateObstacle(int wWidth, const float dt);
    
-   protected:
-
-   private:
-
    };
 } // namespace dasher
