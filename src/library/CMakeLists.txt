@@ -5,13 +5,15 @@ set(INCLUDE_DIRS
 )
 
 set(SOURCE_FILES
-   ${CMAKE_SOURCE_DIR}/src/library/Texture.cpp
    ${CMAKE_SOURCE_DIR}/src/library/Player.cpp
    ${CMAKE_SOURCE_DIR}/src/library/Obstacle.cpp
 
-   ${CMAKE_SOURCE_DIR}/include/Texture.h
    ${CMAKE_SOURCE_DIR}/include/Player.h
    ${CMAKE_SOURCE_DIR}/include/Obstacle.h
+   
+   ${CMAKE_SOURCE_DIR}/include/Texture.h
+   ${CMAKE_SOURCE_DIR}/include/WindowManager.h
+   
 )
 
 add_library(${PROJECT_NAME}-lib ${SOURCE_FILES})

@@ -1,16 +1,13 @@
 #include <iostream>
 #include "Player.h"
 #include "Obstacle.h"
+#include "WindowManager.h"
 
 int main()
 {
-   // Window dimensions
-   const int windowWidth{1920};
-   const int windowHeight{1080};
-   InitWindow(windowWidth, windowHeight, "Dasher");
-   ToggleFullscreen();
-   SetWindowMonitor(0);
-  
+   // Window init
+   dasher::WindowManager window(1920, 1080, "Dasher"); 
+   
    // Background
    Texture2D background = LoadTexture("/home/vamin/Documents/dashergame/textures/far-buildings.png");
    float bgx{};
@@ -26,7 +23,7 @@ int main()
                   0, 
                   static_cast<float>(player.object.width/player.spriteTotal), 
                   static_cast<float>(player.object.height)};
-   player.pos = {windowWidth/2 - player.rect.width/2,  windowHeight - player.rect.height};
+   player.pos = {window.width/2 - player.rect.width/2,  window.height - player.rect.height};
    player.updateTime = 1.0 / 12.0;
    player.velocity = 0;
    player.jumpVelocity = -600;
@@ -38,7 +35,7 @@ int main()
                     0, 
                     static_cast<float>(obstacle.object.width / obstacle.spriteTotal), 
                     static_cast<float>(obstacle.object.height / obstacle.spriteTotal)};
-   obstacle.pos = {windowWidth, windowHeight - obstacle.rect.height};
+   obstacle.pos = {static_cast<float>(window.width), window.height - obstacle.rect.height};
    obstacle.updateTime = 1.0 / 16.0;
    obstacle.velocity = -600;
 
@@ -49,7 +46,7 @@ int main()
                      0, 
                      static_cast<float>(obstacle2.object.width / obstacle2.spriteTotal), 
                      static_cast<float>(obstacle2.object.height / obstacle2.spriteTotal)};
-   obstacle2.pos = {windowWidth, windowHeight - obstacle2.rect.height};
+   obstacle2.pos = {static_cast<float>(window.width), window.height - obstacle2.rect.height};
    obstacle2.updateTime = 1.0 / 16.0;
    obstacle2.velocity = -800;
 
@@ -106,9 +103,9 @@ int main()
       DrawTextureEx(foreground, fg3Pos, 0.0, fgscale, WHITE);
       
       // Update textures
-      player.updatePlayer(windowHeight, dt);
-      obstacle.updateObstacle(windowWidth, dt);
-      obstacle2.updateObstacle(windowWidth, dt);
+      player.updatePlayer(window.height, dt);
+      obstacle.updateObstacle(window.width, dt);
+      obstacle2.updateObstacle(window.width, dt);
 
       // Draw obstacle
       DrawTextureRec(obstacle.object, obstacle.rect, obstacle.pos, WHITE);

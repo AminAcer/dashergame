@@ -24,14 +24,13 @@ TimeData Class
 		runningTime
 		updateTime
 
-WindowManager
-	Variables:
-		windowWidth
-		windowHeight
-	Functions:
-		createWindow
-		toggleFullscreen
-		beginDrawing
+----- WindowManager
+----- 	Variables:
+----- 		windowWidth
+----- 		windowHeight
+----- 	Functions:
+----- 		createWindow
+----- 		toggleFullscreen
 
 GameManager Class
 	Gamestate Enum:
@@ -41,6 +40,7 @@ GameManager Class
 	Functions:
 		drawTextures
 		detectCollision
+		beginDrawing
 		endGame
 
 Backlog
