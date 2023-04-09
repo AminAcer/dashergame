@@ -1,53 +1,57 @@
 #include <iostream>
-
-#include "raylib.h"
-#include "Texture.h"
+#include "Player.h"
+#include "Obstacle.h"
 
 int main()
 {
    // Window dimensions
-   const int windowWidth{800};
-   const int windowHeight{800};
+   const int windowWidth{1920};
+   const int windowHeight{1080};
    InitWindow(windowWidth, windowHeight, "Dasher");
-
-   // Physics
-   int velocity{0};
-   const int jumpVelocity{-600};
-   int gravity{1000};
-   bool isInAir{false};
+   ToggleFullscreen();
+   SetWindowMonitor(0);
+  
+   // Background
+   Texture2D background = LoadTexture("/home/vamin/Documents/dashergame/textures/far-buildings.png");
+   float bgx{};
+   Texture2D midground = LoadTexture("/home/vamin/Documents/dashergame/textures/back-buildings.png");
+   float mgx{};
+   Texture2D foreground = LoadTexture("/home/vamin/Documents/dashergame/textures/foreground.png");
+   float fgx{};
 
    // ----- Textures PLAYER -----
-   Texture2D player = LoadTexture("/home/vamin/Documents/dashergame/textures/scarfy.png");
-   Rectangle playerRec;
-   int aniFrame{};
-   // Amount of time before updating the animation frame
-   const float updateTimePlayer = 1.0 / 12.0;
-   float runningTime{};
-   playerRec.width = player.width / 6;
-   playerRec.height = player.height;
-   playerRec.x = 0;
-   playerRec.y = 0;
-   Vector2 playerPos{windowWidth/2 - playerRec.width/2, windowHeight - playerRec.height};
+   dasher::Player player("/home/vamin/Documents/dashergame/textures/scarfy.png");
+   player.spriteTotal = 6;
+   player.rect = {0,
+                  0, 
+                  static_cast<float>(player.object.width/player.spriteTotal), 
+                  static_cast<float>(player.object.height)};
+   player.pos = {windowWidth/2 - player.rect.width/2,  windowHeight - player.rect.height};
+   player.updateTime = 1.0 / 12.0;
+   player.velocity = 0;
+   player.jumpVelocity = -600;
 
-   // ----- Textures Obstacle ----
-   Texture2D obstacle = LoadTexture("/home/vamin/Documents/dashergame/textures/12_nebula_spritesheet.png");
-   Rectangle obRec{0.0, 0.0, static_cast<float>(obstacle.width / 8), static_cast<float>(obstacle.height / 8)};
-   Vector2 obPos{windowWidth, windowHeight - obRec.height};
-   
-   Rectangle ob2Rec{0.0, 0.0, static_cast<float>(obstacle.width / 8), static_cast<float>(obstacle.height / 8)};
-   Vector2 ob2Pos{windowWidth + 300, windowHeight - ob2Rec.height};
-   
-   int obFrame{};
-   int ob2Frame{};
-   // Amount of time before updateing the animation frame
+   // ----- First Obstacle ----
+   dasher::Obstacle obstacle("/home/vamin/Documents/dashergame/textures/12_nebula_spritesheet.png");
+   obstacle.spriteTotal = 8;
+   obstacle.rect = {0, 
+                    0, 
+                    static_cast<float>(obstacle.object.width / obstacle.spriteTotal), 
+                    static_cast<float>(obstacle.object.height / obstacle.spriteTotal)};
+   obstacle.pos = {windowWidth, windowHeight - obstacle.rect.height};
+   obstacle.updateTime = 1.0 / 16.0;
+   obstacle.velocity = -600;
 
-   const float updateTimeObstacle = 1.0 / 16.0;
-   const float updateTimeObstacle2 = 1.0 / 16.0;
-   float runningTimeOb{};
-   float runningTimeOb2{};
-
-   // Obstacle x velocity (pixels/sec)
-   int obVel{-600};
+   // ----- Second Obstacle ----
+   dasher::Obstacle obstacle2("/home/vamin/Documents/dashergame/textures/12_nebula_spritesheet.png");
+   obstacle2.spriteTotal = 8;
+   obstacle2.rect = {0, 
+                     0, 
+                     static_cast<float>(obstacle2.object.width / obstacle2.spriteTotal), 
+                     static_cast<float>(obstacle2.object.height / obstacle2.spriteTotal)};
+   obstacle2.pos = {windowWidth, windowHeight - obstacle2.rect.height};
+   obstacle2.updateTime = 1.0 / 16.0;
+   obstacle2.velocity = -800;
 
    // FPS
    const int fps = 140;
@@ -60,92 +64,68 @@ int main()
 
       // Time since last frame (delta time)
       const float dt = GetFrameTime();
-
-      if (playerPos.y >= windowHeight - playerRec.height)
-      {
-         isInAir = false;
-         velocity = 0;
-      }
-      else
-      {
-         isInAir = true;
-         velocity += gravity* dt;
-      }
-      if (IsKeyPressed(KEY_SPACE) && !isInAir)
-      {
-         velocity += jumpVelocity;
-      }
-
-      if (obPos.x + obRec.width <= 0)
-      {
-         obPos.x = windowWidth;
-      }
-
-      // Update player position
-      playerPos.y += velocity * dt;
-
-      // Update obstacle postion
-      obPos.x += obVel * dt;      
-      ob2Pos.x += obVel * dt;
-
-      // Update running time
-      runningTime += dt;
-
-      // Update animation if loop has ran long enough
-      if (runningTime >= updateTimePlayer)
-      {
-         runningTime = 0.0;
-         
-
-         if (!isInAir)
-         {
-            // Update player animation if on the ground
-            playerRec.x = aniFrame * playerRec.width;
-            aniFrame ++;
-            if (aniFrame > 5)
-            {
-               aniFrame = 0;
-            }
-         }      
-      }
       
-      runningTimeOb += dt;
-      if (runningTimeOb >= updateTimeObstacle)
+      // bg1
+      float bgscale = 5.65;
+      bgx -= 50 * dt;
+      if (bgx <= -background.width*bgscale)
       {
-         runningTimeOb = 0.0;
-         obRec.x = obFrame * obRec.width;
-         obFrame++;
-         if (obFrame > 7)
-         {
-            obFrame = 0;
-         }
+         bgx = 0.0;
       }
+      Vector2 bg1Pos{bgx, 0.0};
+      DrawTextureEx(background, bg1Pos, 0.0, bgscale, WHITE);
+      Vector2 bg2Pos{bgx + background.width * bgscale, 0.0};
+      DrawTextureEx(background, bg2Pos, 0.0, bgscale, WHITE);
+      Vector2 bg3Pos{bgx + 2*background.width * bgscale, 0.0};
+      DrawTextureEx(background, bg3Pos, 0.0, bgscale, WHITE);
       
-      runningTimeOb2 += dt;
-      if (runningTimeOb2 >= updateTimeObstacle2)
+      float mgscale = 5.65;
+      mgx -= 80 * dt; 
+      if (mgx <= -midground.width*mgscale)
       {
-         runningTimeOb2 = 0.0;
-         ob2Rec.x = ob2Frame * ob2Rec.width;
-         ob2Frame++;
-         if (ob2Frame > 7)
-         {
-            ob2Frame = 0;
-         }
+         mgx = 0.0;
       }
+      Vector2 mg1Pos{mgx, 0.0};
+      DrawTextureEx(midground, mg1Pos, 0.0, mgscale, WHITE);
+      Vector2 mg2Pos{mgx + midground.width * mgscale, 0.0};
+      DrawTextureEx(midground, mg2Pos, 0.0, mgscale, WHITE);
+      Vector2 mg3Pos{mgx + 2*midground.width * mgscale, 0.0};
+      DrawTextureEx(midground, mg3Pos, 0.0, mgscale, WHITE);
+      
+      float fgscale = 4.0;
+      fgx -= 110 * dt; 
+      if (fgx <= -foreground.width*fgscale)
+      {
+         fgx = 0.0;
+      }
+      Vector2 fg1Pos{fgx, 340};
+      DrawTextureEx(foreground, fg1Pos, 0.0, fgscale, WHITE);
+      Vector2 fg2Pos{fgx + foreground.width * fgscale, 340};
+      DrawTextureEx(foreground, fg2Pos, 0.0, fgscale, WHITE);
+      Vector2 fg3Pos{fgx + 2*foreground.width * fgscale, 340};
+      DrawTextureEx(foreground, fg3Pos, 0.0, fgscale, WHITE);
+      
+      // Update textures
+      player.updatePlayer(windowHeight, dt);
+      obstacle.updateObstacle(windowWidth, dt);
+      obstacle2.updateObstacle(windowWidth, dt);
 
       // Draw obstacle
-      DrawTextureRec(obstacle, obRec, obPos, WHITE);
+      DrawTextureRec(obstacle.object, obstacle.rect, obstacle.pos, WHITE);
 
       // Draw obstacle2
-      DrawTextureRec(obstacle, ob2Rec, ob2Pos, RED);
+      DrawTextureRec(obstacle2.object, obstacle2.rect, obstacle2.pos, WHITE);
 
       // Draw player
-      DrawTextureRec(player, playerRec, playerPos, WHITE);
+      DrawTextureRec(player.object, player.rect, player.pos, WHITE);
 
       EndDrawing();
    }
-   UnloadTexture(player);
-   UnloadTexture(obstacle);
+
+   UnloadTexture(player.object);
+   UnloadTexture(obstacle.object);
+   UnloadTexture(obstacle2.object);
+
    CloseWindow();
 
    return 0;
