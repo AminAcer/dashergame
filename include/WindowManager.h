@@ -12,9 +12,9 @@ namespace dasher
    {
    public:
       /// @brief Constructor
-      /// @param windowWidth Window width
-      /// @param windowHeight Window Height
-      /// @param windowName Window name
+      /// @param windowWidth: Window width
+      /// @param windowHeight: Window height
+      /// @param windowName: Window name
       WindowManager(int windowWidth, int windowHeight, std::string windowName)
       :  width(windowWidth),
          height(windowHeight),

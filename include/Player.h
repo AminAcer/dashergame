@@ -28,7 +28,8 @@ namespace dasher
       Player(Player&&) = delete;
 
       /// @brief Check if player is mid jump
-      /// @param wHeight: Window Height, dt: Delta Time
+      /// @param wHeight: Window height 
+      /// @param dt: Delta Time
       void updateIsInAir(int wHeight, const float dt);
 
       /// @brief Player jump functionality
@@ -39,7 +40,8 @@ namespace dasher
       void updateAnimation() override;
  
       /// @brief Updates player
-      /// @param wHeight: Window Height, dt: Delta Time
+      /// @param wHeight: Window height 
+      /// @param dt: Delta time
       void updatePlayer(int wHeight, const float dt);
 
       /// @brief States whether player is in the air

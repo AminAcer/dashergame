@@ -10,6 +10,7 @@ namespace dasher
    public:
 
       /// @brief Default constructor
+      /// @param textureSource: Path to texture image
       Obstacle(std::string textureSource)
       : Texture(textureSource)
       {
@@ -28,14 +29,15 @@ namespace dasher
       Obstacle(Obstacle&&) = delete;
       
       /// @brief Reset obstacle position when off screen
-      /// @param wWidth: Window Width
+      /// @param wWidth: Window width
       void makeContinuous(int wWidth);
 
       /// @brief Updates obstacle animation
       void updateAnimation() override;
 
       /// @brief Updates obstacle
-      /// @param wWidth: Window Width, dt: Delta Time
+      /// @param wWidth: Window width 
+      /// @param dt: Delta time
       void updateObstacle(int wWidth, const float dt);
    
    };

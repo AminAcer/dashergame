@@ -11,7 +11,7 @@ namespace dasher
    public:
 
       /// @brief Constructor
-      /// @param textureSource Path to texture image
+      /// @param textureSource: Path to texture image
       Texture(std::string textureSource)
       : object(::LoadTexture(textureSource.c_str()))
       {
